@@ -15,6 +15,7 @@ public class AudioReactive : MonoBehaviour
     Vector3[] startPosition, endPosition;
     float lerpFraction; // Lerp point between 0~1
     float t;
+    GameObject mother;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +24,8 @@ public class AudioReactive : MonoBehaviour
         spheres = new GameObject[numSphere];
         initPos = new Vector3[numSphere]; // Start positions
         startPosition = new Vector3[numSphere]; 
-        endPosition = new Vector3[numSphere]; 
-        
+        endPosition = new Vector3[numSphere];
+        mother = GameObject.Find("leaf");
         // Define target positions. Start = random, End = heart 
         for (int i =0; i < numSphere; i++){
             // Random start positions
@@ -39,12 +40,14 @@ public class AudioReactive : MonoBehaviour
         for (int i =0; i < numSphere; i++){
             // Draw primitive elements:
             // https://docs.unity3d.com/6000.0/Documentation/ScriptReference/GameObject.CreatePrimitive.html
-            spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere); 
+            //spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            spheres[i] = Instantiate(mother);
 
             // Position
             initPos[i] = startPosition[i];
             spheres[i].transform.position = initPos[i];
-
+            spheres[i].transform.localRotation = Quaternion.EulerAngles(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f));
+            spheres[i].transform.localScale = new Vector3(Random.Range(0.3f, 0.5f), Random.Range(0.3f, 0.5f), Random.Range(0.3f, 0.5f));
             // Color
             // Get the renderer of the spheres and assign colors.
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();

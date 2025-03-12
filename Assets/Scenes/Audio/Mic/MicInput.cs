@@ -22,7 +22,7 @@ public class MicInput : MonoBehaviour
 
     void Update()
     {
-        Amplitude = GetAmplitude() * 5f;
+        Amplitude = GetAmplitude() * 50f;
         Debug.Log(Amplitude);
     }
 
@@ -30,7 +30,7 @@ public class MicInput : MonoBehaviour
     {
         if (Microphone.devices.Length > 0)
         {
-            selectedDevice = Microphone.devices[1]; // Use the first available microphone
+            selectedDevice = Microphone.devices[0]; // Use the first available microphone
             microphoneClip = Microphone.Start(selectedDevice, true, 1, AudioSettings.outputSampleRate);
         }
         else
